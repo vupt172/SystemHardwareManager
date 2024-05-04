@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="shm-view" stylesheets="@../styles/application.css" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vupt.SHM.views.SHMController">
+   <children>
+      <HBox styleClass="shm-header">
+         <children>
+            <MenuBar HBox.hgrow="SOMETIMES">
+               <menus>
+                  <Menu mnemonicParsing="false" text="Đơn vị">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#manageEmployee" text="Quản Lý Nhân Viên" />
+                        <MenuItem mnemonicParsing="false" onAction="#manageRepairter" text="Đơn Vị Sửa Chữa" />
+                        <MenuItem mnemonicParsing="false" onAction="#manageDepartment" text="Quản Lý Tổ Chức" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Thiết Bị Phần Cứng">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#manageCategory" text="Quản lý danh mục thiết bị" />
+                        <MenuItem mnemonicParsing="false" onAction="#manageEquipment" text="Quản lý thiết bị phần cứng" />
+                        <MenuItem mnemonicParsing="false" onAction="#manageEquipmentGroup" text="Quản lý nhóm thiết bị" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Sửa chữa, Bảo Trì">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Quản lý lịch sử sửa chữa" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Thống Kê">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Quản Lý Thiết Bị Phần Cứng" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Tài Khoản">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#manageAccount" text="Quản Lý Tài Khoản" />
+                     </items>
+                  </Menu>
+                  <Menu fx:id="menuWindows" mnemonicParsing="false" text="Cửa Sổ" />
+               </menus>
+            </MenuBar>
+            <MenuBar>
+               <menus>
+                  <Menu fx:id="menuWelcome" mnemonicParsing="false" text="Welcome ...">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Đăng Xuất" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+         </children>
+      </HBox>
+      <VBox styleClass="shm-body" VBox.vgrow="ALWAYS">
+         <children>
+            <StackPane fx:id="contentView" alignment="TOP_LEFT" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </children>
+</VBox>

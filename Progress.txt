@@ -1,0 +1,7 @@
+1.Tạo Account (Entity+Repository)
+2.Tạo Role -Authority Enum
+3.Spring Security
+4.Mã hóa mật khẩu
+5.Thiết kế Category,Employee (Entity+Repository)
+6.Thiết kê main menu 
+6. Thiết kế chức năng category
