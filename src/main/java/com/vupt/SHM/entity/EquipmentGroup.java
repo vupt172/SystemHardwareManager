@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 public class EquipmentGroup extends BaseEntity {
     private String name;
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "equipmentGroup")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "equipmentGroup",cascade = CascadeType.PERSIST)
     private List<Equipment> equipmentList =new ArrayList<>();
 
     @ManyToOne

@@ -44,10 +44,7 @@ public class EquipmentGroupController {
 
     @FXML
     public void initialize() throws IOException {
-        departmentService.findAll().stream().forEach(e-> {
-           List<EquipmentGroupDTO> equipmentGroupDTOList= equipmentGroupService.findALl().stream().filter(v->v.getDepartmentId() == e.getId()).collect(Collectors.toList());
-            vbox.getChildren().add(new DepartmentTitledPane(e.getName(),equipmentGroupDTOList));
-        });
+   reload();
 
     }
     @FXML
@@ -59,19 +56,13 @@ public class EquipmentGroupController {
         reload();
     }
 
-    private void reload() {
+    private Void reload() {
     vbox.getChildren().clear();
         departmentService.findAll().stream().forEach(e-> {
             List<EquipmentGroupDTO> equipmentGroupDTOList= equipmentGroupService.findALl().stream().filter(v->v.getDepartmentId() == e.getId()).collect(Collectors.toList());
-            vbox.getChildren().add(new DepartmentTitledPane(e.getName(),equipmentGroupDTOList));
+            vbox.getChildren().add(new DepartmentTitledPane(e.getName(),equipmentGroupDTOList,this::reload));
         });
-    }
-
-    private class EquipmentGroupTitledPane extends TitledPane {
-
-     public EquipmentGroupTitledPane(){
-
-     }
+        return null;
     }
 
 }

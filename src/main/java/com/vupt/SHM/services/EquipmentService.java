@@ -52,4 +52,8 @@ public class EquipmentService {
             equipmentRepo.save(newEquipment);
         }
     }
+    public Equipment findById(long id) {
+        return equipmentRepo.findById(id)
+                .orElseThrow(() -> new AppException("Không tìm thấy equipment với id là "+id));
+    }
 }

@@ -1,6 +1,7 @@
 package com.vupt.SHM.DTO;
 
 import com.vupt.SHM.constant.EquipmentStatus;
+import com.vupt.SHM.utils.DateTimeUtils;
 import lombok.Data;
 
 import java.sql.Date;
@@ -20,4 +21,8 @@ public class EquipmentDTO {
     private long categoryId;
     private String categoryName;
 
+ /*   @Override
+    public String toString() {
+        return code+" - "+name+" - "+ DateTimeUtils.format(receivedDate)+" - "+status.getTitle();
+    }*/
 }

@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -38,17 +37,16 @@
                   <Label text="Danh mục" GridPane.rowIndex="2" />
                   <Label text="Thiết bị" GridPane.rowIndex="3" />
                   <Label text="Nhóm thiết bị" GridPane.rowIndex="1" />
-                  <TextField fx:id="tfDepartment" GridPane.columnIndex="1" />
-                  <TextField fx:id="tfEquipmentGroup" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <ComboBox fx:id="cbCategory" prefHeight="34.0" prefWidth="257.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <ComboBox fx:id="cbEquipment" prefHeight="34.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="cbDepartment" prefHeight="34.0" prefWidth="255.0" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="cbEquipmentGroup" prefHeight="34.0" prefWidth="254.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
             </children>
         </VBox>
         <HBox prefHeight="43.0" prefWidth="396.0" styleClass="saving-footer">
             <children>
-            <Button fx:id="btnSelect" mnemonicParsing="false" onAction="#selectCategory" styleClass="success" text="Select" />
                 <Button fx:id="btnSave" mnemonicParsing="false" onAction="#save" prefHeight="25.0" prefWidth="89.0" styleClass="accent" text="Save" />
                 <Button mnemonicParsing="false" onAction="#close" text="Cancel" />
             </children>

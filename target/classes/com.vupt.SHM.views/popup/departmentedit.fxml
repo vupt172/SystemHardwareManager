@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" styleClass="saving-view" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vupt.SHM.views.popup.DepartmentEdit">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="saving-view" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vupt.SHM.views.popup.DepartmentEdit">
    <children>
       <HBox prefHeight="42.0" prefWidth="400.0" styleClass="saving-header">
          <children>
@@ -21,7 +21,7 @@
             <Label fx:id="lbTitle" layoutX="1.0" layoutY="1.0" prefHeight="353.0" prefWidth="249.0" text="DepartmentEdit" />
          </children>
       </HBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="saving-body" VBox.vgrow="ALWAYS">
+      <VBox styleClass="saving-body" VBox.vgrow="ALWAYS">
          <children>
             <GridPane hgap="5.0" vgap="5.0">
                <columnConstraints>
@@ -49,18 +49,10 @@
             </GridPane>
          </children>
       </VBox>
-      <HBox prefHeight="43.0" prefWidth="396.0" styleClass="saving-footer">
+      <HBox prefWidth="400.0" styleClass="saving-footer">
          <children>
-            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#save" prefHeight="25.0" prefWidth="89.0" styleClass="success" text="Save">
-               <graphic>
-                  <SVGPath content="M23 14l-8 8-8-8h5v-12h6v12zM15 22h-15v8h30v-8h-15zM28 26h-4v-2h4v2z" fill="WHITE" scaleX="0.5" scaleY="0.5" />
-               </graphic>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#close" text="Cancel">
-               <graphic>
-                  <SVGPath content="M24 20v-4h-10v-4h10v-4l6 6zM22 18v8h-10v6l-12-6v-26h22v10h-2v-8h-16l8 4v18h8v-6z" scaleX="0.5" scaleY="0.5" />
-               </graphic>
-            </Button>
+            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#save" prefWidth="80.0" styleClass="accent" text="Save" />
+            <Button mnemonicParsing="false" onAction="#close" prefWidth="80.0" text="Cancel" />
          </children>
       </HBox>
    </children>

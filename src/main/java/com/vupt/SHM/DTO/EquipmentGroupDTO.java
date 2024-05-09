@@ -12,4 +12,9 @@ public class EquipmentGroupDTO {
     private long departmentId;
     private String departmentName;
     private List<EquipmentDTO> equipmentDTOList =new ArrayList<>();
+
+    @Override
+    public String toString() {
+      return name;
+    }
 }

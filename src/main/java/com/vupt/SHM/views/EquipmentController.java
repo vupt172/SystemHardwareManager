@@ -25,6 +25,7 @@ import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 @Controller
 public class EquipmentController {
@@ -71,8 +72,10 @@ public class EquipmentController {
         colManager.setCellValueFactory(new PropertyValueFactory<EquipmentDTO,String>("managerName"));
         colDepartment.setCellValueFactory(new PropertyValueFactory<EquipmentDTO,String>("departmentName"));
         colNote.setCellValueFactory(new PropertyValueFactory<EquipmentDTO,String>("note"));
-
+        List<EquipmentDTO> equipmentDTOList=equipmentService.findAll();
+        tbEquipment.getItems().clear();
         tbEquipment.setItems(FXCollections.observableList(equipmentService.findAll()));
+
     }
 
 

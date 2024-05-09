@@ -42,4 +42,8 @@ public class DepartmentService {
         return departmentRepo.findById(id)
                 .orElseThrow(() -> new AppException("Không tìm thấy department với id là "+id));
     }
+    public DepartmentDTO getDTO(long id){
+        Department d= this.findById(id);
+        return modelMapper.map(d,DepartmentDTO.class);
+    }
 }

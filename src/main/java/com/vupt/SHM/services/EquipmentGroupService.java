@@ -11,6 +11,7 @@ import com.vupt.SHM.exceptions.AppException;
 import com.vupt.SHM.repositories.DepartmentRepository;
 import com.vupt.SHM.repositories.EmployeeRepository;
 import com.vupt.SHM.repositories.EquipmentGroupRepository;
+import com.vupt.SHM.repositories.EquipmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,10 @@ public class EquipmentGroupService {
     @Autowired
     EquipmentGroupRepository equipmentGroupRepo;
     @Autowired
+    EquipmentService equipmentService;
+    @Autowired
+    EquipmentRepository equipmentRepo;
+    @Autowired
     DepartmentService departmentService;
 
     @Autowired
@@ -35,9 +40,9 @@ public class EquipmentGroupService {
                 .forEach(equipmentGroup -> {
                   EquipmentGroupDTO dto=  modelMapper.map(equipmentGroup, EquipmentGroupDTO.class);
                   List<Equipment> list=equipmentGroup.getEquipmentList();
-               /*    dto.setEquipmentDTOList(equipmentGroup.getEquipmentList().stream()
+                   dto.setEquipmentDTOList(equipmentGroup.getEquipmentList().stream()
                            .map(e-> modelMapper.map(e, EquipmentDTO.class)).collect(Collectors.toList())
-                   );*/
+                   );
                     equipmentGroupDTOList.add(dto);
                 });
          return equipmentGroupDTOList;
@@ -53,6 +58,20 @@ public class EquipmentGroupService {
 
             equipmentGroupRepo.save(equipmentGroup);
         }
+    }
+    public void addEquipment(EquipmentGroupDTO equipmentGroupDTO,long equipmentId){
+        EquipmentGroup equipmentGroup=this.findById(equipmentGroupDTO.getId());
+        Equipment equipment=equipmentService.findById(equipmentId);
+        equipment.setEquipmentGroup(equipmentGroup);
+        equipmentRepo.save(equipment);
+    }
+    public EquipmentGroup findById(long id){
+        return equipmentGroupRepo.findById(id)
+                .orElseThrow(() -> new AppException("Không tìm thấy equipment group với id là "+id));
+    }
+    public EquipmentGroupDTO getDTO(long id){
+        EquipmentGroup equipmentGroup=this.findById(id);
+        return modelMapper.map(equipmentGroup,EquipmentGroupDTO.class);
     }
 }
 

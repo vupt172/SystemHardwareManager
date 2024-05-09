@@ -3,6 +3,7 @@ package com.vupt.SHM.databuild;
 import com.vupt.SHM.DTO.EmployeeDTO;
 import com.vupt.SHM.constant.Authority;
 import com.vupt.SHM.constant.DepartmentType;
+import com.vupt.SHM.constant.EquipmentStatus;
 import com.vupt.SHM.entity.*;
 import com.vupt.SHM.repositories.*;
 import com.vupt.SHM.views.DepartmentController;
@@ -135,7 +136,7 @@ public class DataInitializer {
                 equipmentA.setDepartment(department);
                 Employee employee=employeeRepository.findById(01L).get();
                 equipmentA.setManager(employee);
-
+                equipmentA.setStatus(EquipmentStatus.USED);
                 equipmentRepository.save(equipmentA);
             }
         };
