@@ -1,9 +1,11 @@
 package com.vupt.SHM.services;
 
 import com.vupt.SHM.DTO.EmployeeDTO;
+import com.vupt.SHM.DTO.EquipmentDTO;
 import com.vupt.SHM.DTO.EquipmentGroupDTO;
 import com.vupt.SHM.entity.Department;
 import com.vupt.SHM.entity.Employee;
+import com.vupt.SHM.entity.Equipment;
 import com.vupt.SHM.entity.EquipmentGroup;
 import com.vupt.SHM.exceptions.AppException;
 import com.vupt.SHM.repositories.DepartmentRepository;
@@ -13,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,9 +30,18 @@ public class EquipmentGroupService {
     ModelMapper modelMapper;
 
     public List<EquipmentGroupDTO> findALl() {
-        return equipmentGroupRepo.findAll().stream()
-                .map(equipmentGroup -> modelMapper.map(equipmentGroup, EquipmentGroupDTO.class))
-                .collect(Collectors.toList());
+        List<EquipmentGroupDTO> equipmentGroupDTOList=new ArrayList<>();
+         equipmentGroupRepo.findAll()
+                .forEach(equipmentGroup -> {
+                  EquipmentGroupDTO dto=  modelMapper.map(equipmentGroup, EquipmentGroupDTO.class);
+                  List<Equipment> list=equipmentGroup.getEquipmentList();
+               /*    dto.setEquipmentDTOList(equipmentGroup.getEquipmentList().stream()
+                           .map(e-> modelMapper.map(e, EquipmentDTO.class)).collect(Collectors.toList())
+                   );*/
+                    equipmentGroupDTOList.add(dto);
+                });
+         return equipmentGroupDTOList;
+
     }
 
     public void save(EquipmentGroupDTO equipmentGroupDTO) {

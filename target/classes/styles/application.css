@@ -12,6 +12,7 @@
 }
 .title-pane {
     -fx-padding: 5px;
+    -fx-spacing: 5px;
 }
 
 
@@ -92,7 +93,7 @@
 }
 /* Function : Save or Edit Entity*/
 .saving-view{
-    -fx-pref-width:400px;
+    -fx-min-width:400px;
     -fx-font-size: 14px;
     -fx-font-family:"Segoe UI" ;
 /*    -fx-border-width: 2px;
@@ -118,6 +119,12 @@
     -fx-padding: 10px;
     -fx-background-color:-color-accent-subtle ;
 
+}
+.saving-body #btnRefresh{
+    -fx-text-fill: -color-accent-fg;
+}
+.saving-body #btnRefresh:hover #btnRefresh:focused{
+    -fx-text-fill: red;
 }
 .saving-body .label{
 

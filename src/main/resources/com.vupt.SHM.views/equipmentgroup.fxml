@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 
-<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vupt.SHM.views.EquipmentGroupController">
-   <content>
-      <VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="content-view" stylesheets="@../styles/application.css" />
-   </content>
-</ScrollPane>
+<VBox stylesheets="@../styles/application.css" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vupt.SHM.views.EquipmentGroupController">
+   <children>
+      <HBox styleClass="content-header">
+         <children>
+            <ToolBar prefHeight="46.0" prefWidth="515.0" HBox.hgrow="ALWAYS">
+               <items>
+                  <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#createEquipmentGroupView" styleClass="success" text="Thêm">
+                     <graphic>
+                        <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" styleClass="accent" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="accent" text="Sửa">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" text="" />
+                     </graphic>
+                  </Button>
+                  <Button layoutX="73.0" layoutY="10.0" mnemonicParsing="false" styleClass="danger" text="Xóa">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="TRASH" />
+                     </graphic>
+                  </Button>
+               </items>
+            </ToolBar>
+         </children>
+      </HBox>
+      <ScrollPane fitToWidth="true">
+         <content>
+            <VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="content-view" stylesheets="@../styles/application.css" />
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>
