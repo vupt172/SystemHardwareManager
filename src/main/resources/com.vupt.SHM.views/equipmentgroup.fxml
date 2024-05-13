@@ -2,13 +2,13 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox stylesheets="@../styles/application.css" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vupt.SHM.views.EquipmentGroupController">
+<VBox prefHeight="500.0" styleClass="content-view" stylesheets="@../styles/application.css" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vupt.SHM.views.EquipmentGroupController">
    <children>
       <HBox styleClass="content-header">
          <children>
@@ -33,10 +33,29 @@
             </ToolBar>
          </children>
       </HBox>
-      <ScrollPane fitToWidth="true">
-         <content>
-            <VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="content-view" stylesheets="@../styles/application.css" />
-         </content>
-      </ScrollPane>
+      <HBox style="-fx-background-color: white;" styleClass="content-body" VBox.vgrow="ALWAYS">
+         <children>
+            <ScrollPane fitToWidth="true" hbarPolicy="ALWAYS" vbarPolicy="ALWAYS" HBox.hgrow="ALWAYS">
+               <content>
+                  <VBox fx:id="content" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2000.0" prefWidth="600.0" stylesheets="@../styles/application.css" />
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+      <HBox styleClass="content-footer">
+         <children>
+            <ToolBar prefHeight="46.0" prefWidth="515.0" HBox.hgrow="ALWAYS">
+               <items>
+                  <ComboBox fx:id="cbDepartment" prefWidth="150.0" promptText="Bộ phận" />
+               </items>
+            </ToolBar>
+            <ToolBar prefHeight="40.0" prefWidth="200.0" styleClass="tool-bar-search">
+               <items>
+                  <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#search" text="Tìm kiếm" />
+                  <Button mnemonicParsing="false" onAction="#clear" text="Nhập lại" />
+               </items>
+            </ToolBar>
+         </children>
+      </HBox>
    </children>
 </VBox>

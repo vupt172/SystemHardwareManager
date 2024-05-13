@@ -2,8 +2,10 @@ package com.vupt.SHM.views;
 
 import com.vupt.SHM.DTO.CategoryDTO;
 import com.vupt.SHM.SHMApplication;
+import com.vupt.SHM.constant.AppConstants;
 import com.vupt.SHM.entity.Category;
 import com.vupt.SHM.services.CategoryService;
+import com.vupt.SHM.utils.DisplayMessage;
 import com.vupt.SHM.views.common.CustomNotification;
 import com.vupt.SHM.views.popup.CategoryEdit;
 import com.vupt.SHM.views.common.CustomAlert;
@@ -21,11 +23,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
 public class CategoryController {
+    private  String windowTitle = "Quản lý danh mục";
     @Autowired
     CategoryService categoryService;
     @Autowired
@@ -43,13 +48,14 @@ public class CategoryController {
     private TableColumn<CategoryDTO, Boolean> colIsSuspended;
 
 
-
     public static Parent loadView(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(CategoryController.class.getResource("/com.vupt.SHM.views/category.fxml"));
         loader.setControllerFactory(SHMApplication.getApplicationContext()::getBean);
         Parent view = loader.load();
-        String window = "Quản lý danh mục";
-        primaryStage.setTitle(window);
+        view.setId(AppConstants.MANAGE_CATEGORY);
+
+        CategoryController categoryController=loader.getController();
+        primaryStage.setTitle(AppConstants.MANAGE_CATEGORY);
         return view;
     }
 
@@ -88,39 +94,32 @@ public class CategoryController {
     private void updateCategoryView() {
         CategoryDTO selectedCategoryDTO = tbCategory.getSelectionModel().getSelectedItem();
 
-        if (selectedCategoryDTO == null) {
-            CustomAlert.AlertBuilder.builder(Alert.AlertType.WARNING)
-                    .setTitle("Thông báo")
-                    .setHeaderText("Cập nhật danh mục")
-                    .setContentText("Không có danh mục được chọn để cập nhật!")
-                    .build()
-                    .show();
-            return;
+        if (selectedCategoryDTO != null) {
+            CategoryEdit.loadView(selectedCategoryDTO, this::save, tbCategory);
         }
-        CategoryEdit.loadView(selectedCategoryDTO, this::save, tbCategory);
-
     }
 
     @FXML
     private void deleteCategory() {
         CategoryDTO selectedCategoryDTO = tbCategory.getSelectionModel().getSelectedItem();
 
-        if (selectedCategoryDTO == null) {
+        if (selectedCategoryDTO != null) {
 
-            CustomAlert.AlertBuilder.builder(Alert.AlertType.WARNING)
-                    .setTitle("Thông báo")
-                    .setHeaderText("Xóa danh mục")
-                    .setContentText("Không có danh mục được chọn để xóa!")
+            Optional<ButtonType> result = CustomAlert.AlertBuilder.builder(Alert.AlertType.WARNING)
+                    .setHeaderText(null)
+                    .setContentText(DisplayMessage.getWarningDeleteMessage(AppConstants.MENU_CATEGORY,selectedCategoryDTO.getName()))
+                    .setYesNoButtonTypes()
                     .build()
-                    .show();
-            return;
+                    .showAndWait();
+            if (result.get().getButtonData() == ButtonBar.ButtonData.YES) {
+                categoryService.softDelete(selectedCategoryDTO.getId());
+                reload();
+                //show notification
+                CustomNotification.createNotification("Trạng thái", "Xóa thành công", tbCategory).showInformation();
+            }
+
         }
-        categoryService.softDelete(selectedCategoryDTO.getId());
 
-        reload();
-
-        //show notification
-        CustomNotification.createNotification("Trạng thái", "Xóa thành công", tbCategory).showInformation();
 
     }
 

@@ -65,6 +65,12 @@ public class EquipmentGroupService {
         equipment.setEquipmentGroup(equipmentGroup);
         equipmentRepo.save(equipment);
     }
+    /* remove equipment from equipment group*/
+    public void removeEquipmentFromGroup(long equipmentId) {
+        Equipment selectedEquipment = equipmentService.findById(equipmentId);
+        selectedEquipment.setEquipmentGroup(null);
+        equipmentRepo.save(selectedEquipment);
+    }
     public EquipmentGroup findById(long id){
         return equipmentGroupRepo.findById(id)
                 .orElseThrow(() -> new AppException("Không tìm thấy equipment group với id là "+id));
@@ -73,5 +79,7 @@ public class EquipmentGroupService {
         EquipmentGroup equipmentGroup=this.findById(id);
         return modelMapper.map(equipmentGroup,EquipmentGroupDTO.class);
     }
+
+
 }
 

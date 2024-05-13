@@ -2,6 +2,7 @@ package com.vupt.SHM.views.popup;
 
 import com.vupt.SHM.DTO.*;
 import com.vupt.SHM.SHMApplication;
+import com.vupt.SHM.constant.EquipmentStatus;
 import com.vupt.SHM.entity.Equipment;
 import com.vupt.SHM.entity.EquipmentGroup;
 import com.vupt.SHM.services.CategoryService;
@@ -9,6 +10,7 @@ import com.vupt.SHM.services.DepartmentService;
 import com.vupt.SHM.services.EquipmentGroupService;
 import com.vupt.SHM.services.EquipmentService;
 import com.vupt.SHM.utils.FxUtilTest;
+import com.vupt.SHM.views.EquipmentGroupController;
 import com.vupt.SHM.views.common.CustomNotification;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
@@ -38,7 +40,7 @@ public class EquipmentGroupSelect {
     private Object owner;
     private EquipmentGroupSelectDTO equipmentGroupSelectDTO;
     private EquipmentGroupDTO equipmentGroupDTO;
-    private Supplier<Void> reload;
+    private EquipmentGroupController equipmentGroupController;
     @Autowired
     DepartmentService departmentService;
     @Autowired
@@ -62,12 +64,12 @@ public class EquipmentGroupSelect {
     @FXML
     ComboBox<EquipmentDTO> cbEquipment;
 
-    public static void loadView(EquipmentGroupDTO equipmentGroupDTO, Object owner, Supplier<Void> reload) {
-        loadView(equipmentGroupDTO,null, owner,reload);
+    public static void loadView(EquipmentGroupController equipmentGroupController, EquipmentGroupDTO equipmentGroupDTO, Object owner) {
+        loadView(equipmentGroupController, equipmentGroupDTO, null, owner);
 
     }
 
-    public static void loadView(EquipmentGroupDTO equipmentGroupDTO,EquipmentGroupSelectDTO equipmentGroupSelectDTO, Object owner,Supplier<Void> reload) {
+    public static void loadView(EquipmentGroupController equipmentGroupController, EquipmentGroupDTO equipmentGroupDTO, EquipmentGroupSelectDTO equipmentGroupSelectDTO, Object owner) {
         /* public static void loadView(Category category, Consumer<Category> saveHandler){*/
         try {
             Stage stage = new Stage(StageStyle.UNDECORATED);
@@ -79,7 +81,7 @@ public class EquipmentGroupSelect {
 
             //initialize form
             EquipmentGroupSelect equipmentGroupSelect = loader.getController();
-            equipmentGroupSelect.init(equipmentGroupDTO,equipmentGroupSelectDTO,owner,reload);
+            equipmentGroupSelect.init(equipmentGroupController, equipmentGroupDTO, equipmentGroupSelectDTO, owner);
 
             stage.show();
 
@@ -87,46 +89,46 @@ public class EquipmentGroupSelect {
             e.printStackTrace();
         }
     }
-    private void init(EquipmentGroupDTO equipmentGroupDTO,EquipmentGroupSelectDTO equipmentGroupSelectDTO,Object owner,Supplier<Void> reload){
-        this.owner=owner;
-        this.reload=reload;
-        this.equipmentGroupDTO=equipmentGroupDTO;
+
+    private void init(EquipmentGroupController equipmentGroupController, EquipmentGroupDTO equipmentGroupDTO, EquipmentGroupSelectDTO equipmentGroupSelectDTO, Object owner) {
+        this.owner = owner;
+        this.equipmentGroupController = equipmentGroupController;
+        this.equipmentGroupDTO = equipmentGroupDTO;
         this.cbDepartment.setEditable(false);
         this.cbEquipmentGroup.setEditable(false);
 
         this.cbDepartment.setValue(departmentService.getDTO(equipmentGroupDTO.getDepartmentId()));
         this.cbEquipmentGroup.setValue(equipmentGroupService.getDTO(equipmentGroupDTO.getId()));
-        this.cbCategory.getItems().addAll(categoryService.findAll());
+
+        this.cbCategory.getItems().addAll(categoryService.findAllIfNotSuspended());
         this.cbCategory.valueProperty().addListener((observable, oldValue, newValue) -> {
             selectEquipmentsByCategory();
         });
-        if(equipmentGroupSelectDTO==null){
-           this.lbTitle.setText("Chọn thiết bị vào nhóm");
+        if (equipmentGroupSelectDTO == null) {
+            this.lbTitle.setText("Chọn thiết bị vào nhóm");
         }
     }
+
     @FXML
-    public void save(){
-      equipmentGroupService.addEquipment(equipmentGroupDTO,cbEquipment.getValue().getId());
+    public void save() {
+        equipmentGroupService.addEquipment(equipmentGroupDTO, cbEquipment.getValue().getId());
 
         //show notification
-        CustomNotification.createNotification("Trạng thái","Lưu thành công",owner).showInformation();
-        reload.get();
+        CustomNotification.createNotification("Trạng thái", "Lưu thành công", owner).showInformation();
+        equipmentGroupController.reload();
         close();
     }
+
     @FXML
-    public void close(){
-           btnSave.getScene().getWindow().hide();
+    public void close() {
+        btnSave.getScene().getWindow().hide();
     }
 
-    public void selectEquipmentsByCategory(){
-       List<EquipmentDTO> equipmentDTOList= equipmentService.findAll()
-               .stream()
-               .filter(equipmentDTO -> equipmentDTO.getDepartmentId() == cbDepartment.getValue().getId())
-               .filter(equipmentDTO -> equipmentDTO.getCategoryId()==cbCategory.getValue().getId())
-               .collect(Collectors.toList());
+    public void selectEquipmentsByCategory() {
+        List<EquipmentDTO> equipmentDTOList = equipmentService.selectEquipment(cbDepartment.getValue().getId(), cbCategory.getValue().getId());
 
-       cbEquipment.getItems().clear();
-      cbEquipment.getItems().addAll(equipmentDTOList);
+        cbEquipment.getItems().clear();
+        cbEquipment.getItems().addAll(equipmentDTOList);
         //FxUtilTest.autoCompleteComboBoxPlus(cbEquipment,(typedText, equipmentDTO)->equipmentDTO.toString().contains(typedText));
 
     }

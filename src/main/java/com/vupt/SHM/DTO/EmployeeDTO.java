@@ -12,6 +12,8 @@ public class EmployeeDTO{
     private String username;
     private long departmentId;
     private String departmentName;
+    private String contact;
+    private boolean isManager;
     @Override
     public String toString() {
         return this.fullName;

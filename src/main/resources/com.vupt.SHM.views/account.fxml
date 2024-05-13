@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="content-view" stylesheets="@../styles/application.css" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vupt.SHM.views.AccountController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" styleClass="content-view" stylesheets="@../styles/application.css" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vupt.SHM.views.AccountController">
    <children>
       <HBox styleClass="content-header">
          <children>
@@ -39,7 +39,7 @@
          <children>
             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" vbarPolicy="ALWAYS" HBox.hgrow="ALWAYS">
                <content>
-                  <TableView fx:id="tbAccount" editable="true">
+                  <TableView fx:id="tbAccount">
                      <columns>
                         <TableColumn fx:id="colId" prefWidth="70.0" text="Id" />
                         <TableColumn fx:id="colUsername" prefWidth="250.0" text="Tài Khoản" />

@@ -20,9 +20,8 @@ public class EquipmentDTO {
     private String departmentName;
     private long categoryId;
     private String categoryName;
-
- /*   @Override
+    @Override
     public String toString() {
         return code+" - "+name+" - "+ DateTimeUtils.format(receivedDate)+" - "+status.getTitle();
-    }*/
+    }
 }

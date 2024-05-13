@@ -3,6 +3,7 @@ package com.vupt.SHM.views;
 import com.vupt.SHM.DTO.AccountDTO;
 import com.vupt.SHM.DTO.CategoryDTO;
 import com.vupt.SHM.SHMApplication;
+import com.vupt.SHM.constant.AppConstants;
 import com.vupt.SHM.entity.Account;
 import com.vupt.SHM.entity.Category;
 import com.vupt.SHM.services.AccountService;
@@ -47,8 +48,9 @@ public class AccountController {
         FXMLLoader loader = new FXMLLoader(AccountController.class.getResource("/com.vupt.SHM.views/account.fxml"));
         loader.setControllerFactory(SHMApplication.getApplicationContext()::getBean);
         Parent view = loader.load();
-        String window = "Quản lý tài khoản";
-        primaryStage.setTitle(window);
+        view.setId(AppConstants.MANAGE_ACCOUNT);
+
+        primaryStage.setTitle(AppConstants.MANAGE_ACCOUNT);
         return view;
     }
     @FXML

@@ -4,6 +4,7 @@ import com.vupt.SHM.constant.DepartmentType;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -14,7 +15,9 @@ import java.util.List;
 @Entity
 @Where(clause = "is_deleted = false")
 public class Department extends BaseEntity{
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private DepartmentType type;
     private boolean isSuspended=false;
 

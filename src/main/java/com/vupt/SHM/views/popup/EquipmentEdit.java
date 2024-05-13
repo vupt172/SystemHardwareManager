@@ -22,22 +22,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.function.Consumer;
 
 @Controller
 public class EquipmentEdit {
-   @Autowired
+    @Autowired
     private CategoryService categoryService;
-   @Autowired
-   private DepartmentService departmentService;
-   @Autowired
-   private EmployeeService employeeService;
+    @Autowired
+    private DepartmentService departmentService;
+    @Autowired
+    private EmployeeService employeeService;
 
     private Consumer<EquipmentDTO> saveHandler;
     private EquipmentDTO equipmentDTO;
     private Object owner;
     @FXML
     Label lbTitle;
+
     @FXML
     TextField tfId;
     @FXML
@@ -76,7 +78,7 @@ public class EquipmentEdit {
 
             //initialize form
             EquipmentEdit equipmentEdit = loader.getController();
-            equipmentEdit.init(equipmentDTO,saveHandler,owner);
+            equipmentEdit.init(equipmentDTO, saveHandler, owner);
 
             stage.show();
 
@@ -85,9 +87,9 @@ public class EquipmentEdit {
         }
     }
 
-    private void init(EquipmentDTO equipmentDTO, Consumer<EquipmentDTO> saveHandler,Object owner) {
-        this.saveHandler=saveHandler;
-        this.owner=owner;
+    private void init(EquipmentDTO equipmentDTO, Consumer<EquipmentDTO> saveHandler, Object owner) {
+        this.saveHandler = saveHandler;
+        this.owner = owner;
 
         this.tfId.setEditable(false);
         this.tfCode.setEditable(false);
@@ -97,30 +99,53 @@ public class EquipmentEdit {
         cbStatus.setCellFactory(param -> new EquipmentStatusListCell());
         cbStatus.setButtonCell(new EquipmentStatusListCell());
 
-        cbCategory.getItems().addAll(categoryService.findAll());
-        cbManager.getItems().addAll(employeeService.findALl());
+        cbCategory.getItems().addAll(categoryService.findAllIfNotSuspended());
+        cbManager.getItems().addAll(employeeService.findByIsManager());
         cbDepartment.getItems().addAll(departmentService.findAll());
 
 
-
-        if(equipmentDTO == null){
-            this.equipmentDTO=new EquipmentDTO();
+        if (equipmentDTO == null) {
+            this.equipmentDTO = new EquipmentDTO();
             this.lbTitle.setText("Thêm thiết bị mới");
 
-        }
-        else {
-            this.equipmentDTO=equipmentDTO;
+        } else {
+            this.equipmentDTO = equipmentDTO;
             this.lbTitle.setText("Cập nhật thiết bị");
-    /*        this.tfId.setText(String.valueOf(EquipmentDTO.getId()));
-            this.tfName.setText(EquipmentDTO.getName());
-            this.cbTypeList.setValue(EquipmentDTO.getDepartmentType());
-            this.cbIsSuspended.setSelected(EquipmentDTO.isSuspended());*/
+            setFormValueFromDTO(equipmentDTO);
         }
     }
 
+    private boolean checkValidateForm() {
+        if (tfName.getText().trim().isEmpty()) {
+            lbMessage.setText("Tên thiết bị không được để trống");
+            return false;
+        }
+        if (dpReceivedDate.getValue() == null) {
+            lbMessage.setText("Ngày nhận không được để trống");
+            return false;
+        }
+        if (cbStatus.getValue() == null) {
+            lbMessage.setText("Trạng thái không được để trống");
+            return false;
+        }
+        if (cbCategory.getValue() == null) {
+            lbMessage.setText("Danh mục không đươc để trống");
+            return false;
+        }
+        if (cbManager.getValue() == null) {
+            lbMessage.setText("Người quản lý không được để trống");
+            return false;
+        }
+        if (cbDepartment.getValue() == null) {
+            lbMessage.setText("Địa điểm không được để trống");
+            return false;
+        }
+        return true;
+    }
 
-    @FXML
-    private void save() {
+    private EquipmentDTO setDTOFromFormValue() {
+        EquipmentDTO equipmentDTO = new EquipmentDTO();
+        equipmentDTO.setId(Integer.valueOf(tfId.getText()));
         equipmentDTO.setName(tfName.getText());
         equipmentDTO.setCode(tfCode.getText());
         equipmentDTO.setReceivedDate(Date.valueOf(dpReceivedDate.getValue()));
@@ -129,11 +154,29 @@ public class EquipmentEdit {
         equipmentDTO.setCategoryId(cbCategory.getValue().getId());
         equipmentDTO.setDepartmentId(cbDepartment.getValue().getId());
         equipmentDTO.setManagerId(cbManager.getValue().getId());
+        return equipmentDTO;
+    }
+    private void setFormValueFromDTO(EquipmentDTO equipmentDTO){
+        tfId.setText(String.valueOf(equipmentDTO.getId()));
+        tfName.setText(equipmentDTO.getName());
+        tfCode.setText(equipmentDTO.getCode());
+        dpReceivedDate.setValue(equipmentDTO.getReceivedDate().toLocalDate());
+        cbStatus.setValue(equipmentDTO.getStatus());
+        cbCategory.setValue(categoryService.getDTO(equipmentDTO.getCategoryId()));
+        cbDepartment.setValue(departmentService.getDTO(equipmentDTO.getDepartmentId()));
+        cbManager.setValue(employeeService.getDTO(equipmentDTO.getManagerId()));
 
+    }
+
+
+    @FXML
+    private void save() {
+        if (!checkValidateForm()) return;
+        this.equipmentDTO = setDTOFromFormValue();
         saveHandler.accept(equipmentDTO);
 
         //show notification
-        CustomNotification.createNotification("Trạng thái","Lưu thành công",owner).showInformation();
+        CustomNotification.createNotification("Trạng thái", "Lưu thành công", owner).showInformation();
 
         close();
     }

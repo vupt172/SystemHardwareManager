@@ -2,7 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -12,21 +12,21 @@
 
 <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="content-view" stylesheets="@../styles/application.css" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vupt.SHM.views.DepartmentController">
    <children>
-      <HBox styleClass="content-header">
+      <HBox prefWidth="600.0" styleClass="content-header">
          <children>
-            <ToolBar prefHeight="46.0" prefWidth="515.0" HBox.hgrow="ALWAYS">
+            <ToolBar prefHeight="52.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
                <items>
                   <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#createDepartmentView" styleClass="success" text="Thêm">
                      <graphic>
                         <FontAwesomeIconView id="icon" fill="WHITE" glyphName="PLUS" styleClass="accent" />
                      </graphic>
                   </Button>
-                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="accent" text="Sửa">
+                  <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateDepartmentView" styleClass="accent" text="Sửa">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="PENCIL" text="" />
                      </graphic>
                   </Button>
-                  <Button layoutX="73.0" layoutY="10.0" mnemonicParsing="false" styleClass="danger" text="Xóa">
+                  <Button layoutX="73.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteDepartment" styleClass="danger" text="Xóa">
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="TRASH" />
                      </graphic>
@@ -37,25 +37,30 @@
       </HBox>
       <HBox VBox.vgrow="ALWAYS">
          <children>
-            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" pannable="true" vbarPolicy="ALWAYS" HBox.hgrow="ALWAYS">
-               <content>
-                  <TableView fx:id="tbDepartment" editable="true">
-                     <columns>
-                        <TableColumn fx:id="colId" prefWidth="70.0" text="Id" />
-                        <TableColumn fx:id="colName" prefWidth="250.0" text="Tên Bộ Phận" />
-                        <TableColumn fx:id="colType" prefWidth="255.0" text="Loại" />
-                        <TableColumn fx:id="colIsSuspended" prefWidth="195.0" text="Tạm Ngưng" />
-                     </columns>
-                  </TableView>
-               </content>
-            </ScrollPane>
+            <TableView fx:id="tbDepartment" HBox.hgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="colId" prefWidth="70.0" text="Id" />
+                  <TableColumn fx:id="colName" prefWidth="250.0" text="Tên Bộ Phận" />
+                  <TableColumn fx:id="colType" prefWidth="250.0" text="Loại" />
+                  <TableColumn fx:id="colIsSuspended" prefWidth="200.0" text="Tạm Ngưng" />
+               </columns>
+            </TableView>
          </children>
       </HBox>
       <HBox prefHeight="51.0" prefWidth="1200.0" styleClass="content-footer">
          <children>
-            <TextField />
-            <Button layoutX="15.0" layoutY="15.0" mnemonicParsing="false" text="Tìm kiếm" />
-         </children>
-      </HBox>
+            <ToolBar prefHeight="52.0" prefWidth="960.0" HBox.hgrow="ALWAYS">
+              <items>
+                  <TextField fx:id="tfName" promptText="Tên bộ phận" />
+                  <ComboBox fx:id="cbDepartmentType" prefWidth="150.0" promptText="Loại Bộ Phận" />
+              </items>
+            </ToolBar>
+            <ToolBar layoutX="10.0" layoutY="10.0" prefHeight="52.0" prefWidth="960.0" styleClass="tool-bar-search">
+               <items>
+                  <Button fx:id="btnSearch1" mnemonicParsing="false" onAction="#search" text="Tìm kiếm" />
+                  <Button mnemonicParsing="false" onAction="#clear" text="Nhập lại" />
+               </items>
+            </ToolBar>
+         </children></HBox>
    </children>
 </VBox>

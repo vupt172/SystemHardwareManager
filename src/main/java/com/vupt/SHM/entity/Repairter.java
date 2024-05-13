@@ -1,11 +1,13 @@
 package com.vupt.SHM.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Entity;
 
 @Data
 @Entity
+@Where(clause = "is_deleted = false")
 public class Repairter extends BaseEntity{
     private String name;
     private String company;

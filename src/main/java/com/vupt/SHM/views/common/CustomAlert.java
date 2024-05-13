@@ -54,6 +54,13 @@ public class CustomAlert  {
             alert.getButtonTypes().setAll(buttonTypeList);
             return this;
         }
+        public AlertBuilder setYesNoButtonTypes(){
+            HashMap<String, ButtonBar.ButtonData> buttonTypes = new HashMap<>();
+            buttonTypes.put("Yes", ButtonBar.ButtonData.YES);
+            buttonTypes.put("No", ButtonBar.ButtonData.NO);
+            setButtonTypeList(buttonTypes);
+            return this;
+        }
         public static AlertBuilder builder(Alert.AlertType alertType) {
             return new AlertBuilder(alertType);
         }

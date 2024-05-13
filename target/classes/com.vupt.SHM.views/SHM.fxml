@@ -17,7 +17,7 @@
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#manageEmployee" text="Quản Lý Nhân Viên" />
                         <MenuItem mnemonicParsing="false" onAction="#manageRepairter" text="Đơn Vị Sửa Chữa" />
-                        <MenuItem mnemonicParsing="false" onAction="#manageDepartment" text="Quản Lý Tổ Chức" />
+                        <MenuItem mnemonicParsing="false" onAction="#manageDepartment" text="Quản Lý Bộ Phận" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Thiết Bị Phần Cứng">

@@ -54,11 +54,11 @@
     -fx-spacing: 5px;
     -fx-font-size: 14px;
 }
-.shm-header{
+.shm-header {
 
 }
 .shm-body{
- /*   -fx-background-color:   -color-neutral-subtle;*/
+
 }
 /* Function : Display function app*/
 
@@ -66,31 +66,33 @@
     -fx-pref-width: 1200px;
     -fx-max-width: 3000px;
     -fx-font-family:"Segoe UI" ;
-
+    -fx-pref-height: 500px;
    /* -fx-spacing: 1px;*/
 
 
 }
-.content-header .button{
-   /* -fx-spacing: 50px;*/
+
+.content-view .button{
+  -fx-min-width: 60px;
 
 }
-.content-header .tool-bar{
+
+.content-view .tool-bar{
     -fx-padding: 10px;
     -fx-spacing: 5px;
 }
 
-.content-footer{
-    -fx-background-color: -color-accent-muted;
-    -fx-padding: 10px;
-    -fx-spacing: 10px;
-}
-.content-footer .button{
-    -fx-content-display: RIGHT;
-}
-.content-footer .button SVGPath{
+.content-body{
 
 }
+.content-footer{
+
+}
+.content-footer .text-field, content-header .combo-box{
+    -fx-pref-width: 150px;
+}
+
+
 /* Function : Save or Edit Entity*/
 .saving-view{
     -fx-min-width:400px;

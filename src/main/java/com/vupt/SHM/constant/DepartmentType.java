@@ -6,7 +6,9 @@ import lombok.Data;
 public enum DepartmentType {
     PHONG("Phòng"),
     TO("Tổ"),
-    KHOA("Khoa");
+    KHOA("Khoa"),
+    PHONG_KHAM("Phòng Khám"),
+    ;
 
     private String title;
 
